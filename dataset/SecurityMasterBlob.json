@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "f6600af400.ext.210611.2",
-				"folderPath": "sftpfiles/sftp.bloomberg/06142021",
+				"fileName": "f6600af400.ext.210622.1",
+				"folderPath": "sftpfiles/sftp.bloomberg/06292021",
 				"fileSystem": "prubcontainer"
 			},
 			"columnDelimiter": ",",
