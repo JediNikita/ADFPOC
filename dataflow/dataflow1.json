@@ -1,0 +1,44 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "SecurityMasterBlob",
+						"type": "DatasetReference"
+					},
+					"name": "SecurityMasterRaw"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SMWithoutHeaderAndFooter",
+						"type": "DatasetReference"
+					},
+					"name": "SMWithoutHeaderAndFooter"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Rank"
+				},
+				{
+					"name": "Serialization"
+				},
+				{
+					"name": "RemoveFooter"
+				},
+				{
+					"name": "RemoveRankAndSno"
+				},
+				{
+					"name": "SortSNo"
+				}
+			],
+			"script": "source(output(\n\t\t{Financial Instrument Global Identifier (FIGI)} as string,\n\t\t{Firm Identifier} as string,\n\t\t{Security Identifier Flag} as short,\n\t\t{Unique Identifier} as string,\n\t\t{Cusip Number} as string,\n\t\t{ISIN Number} as string,\n\t\tTicker as string,\n\t\t{Parskeyeable Description} as string,\n\t\t{Security Name} as string,\n\t\t{Short Name} as string,\n\t\tCountry as short,\n\t\tCurrency as short,\n\t\t{Security Type} as string,\n\t\t{Market Sector Description} as string,\n\t\t{PRPL Indicator} as boolean,\n\t\t{Quote Type} as short,\n\t\t{Pricing Source} as string,\n\t\t{CDR Settle Code} as string,\n\t\t{Next Reset Date} as string,\n\t\t{Last Reset Date} as string,\n\t\t{Coupon Type} as string,\n\t\tCoupon as string,\n\t\t{Coupon as of Date} as string,\n\t\t{Coupon Frequency} as string,\n\t\t{Reset Frequency} as string,\n\t\t{First Settle Date} as string,\n\t\t{First Coupon Payment Date} as string,\n\t\t{Next Coupon Settle Date} as string,\n\t\t{Interest Accrual Date} as string,\n\t\tMaturity as string,\n\t\t{Floater Indicator} as string,\n\t\t{Coupon Rate Fixing Method} as string,\n\t\t{Coupon Convention} as string,\n\t\t{Floater Spread (bp)} as string,\n\t\t{Reset Index} as string,\n\t\t{Amount Issued} as string,\n\t\t{Amount Outstanding} as string,\n\t\t{Issue Date} as string,\n\t\t{Issue Price} as string,\n\t\t{Bloomberg Company Identifier} as string,\n\t\tIssuer as string,\n\t\t{Issuer Industry} as string,\n\t\t{Call Indicator} as string,\n\t\t{Bond Called Indicator} as string,\n\t\t{Next Call Date} as string,\n\t\t{Next Put Date} as string,\n\t\t{Next Call Price} as string,\n\t\t{Next Put Price} as string,\n\t\t{Day Count Description} as string,\n\t\t{Day Count} as string,\n\t\t{Calculation Type Description} as string,\n\t\t{Calculation Type} as string,\n\t\t{Collateral Type} as string,\n\t\t{Swap Type} as string,\n\t\t{Swap Counterparty} as string,\n\t\t{Calc Basis Fixed Leg Pay Side} as string,\n\t\t{Float Lag Term} as string,\n\t\t{Swap Trade Date} as string,\n\t\t{Effective Date} as string,\n\t\t{Pay Side Effective Date} as string,\n\t\t{Pay Currency} as string,\n\t\t{Pay Side Coupon Type} as string,\n\t\t{Pay Coupon} as string,\n\t\t{Pay Frequency} as string,\n\t\t{Pay Floating Rate Index} as string,\n\t\t{Pay Spread} as string,\n\t\t{Pay Reset Frequency} as string,\n\t\t{Pay Side Day Count} as string,\n\t\t{Pay Side Business Day Adjustment} as string,\n\t\t{Pay Side Date Rolling Convention} as string,\n\t\t{Pay Leg Compounding Method} as string,\n\t\t{Receive Side Effective Date} as string,\n\t\t{Receive Currency} as string,\n\t\t{Receive Side Coupon Type} as string,\n\t\t{Receive Coupon} as string,\n\t\t{Receive Frequency} as string,\n\t\t{Receive Floating Rate Index} as string,\n\t\t{Receive Spread} as string,\n\t\t{Receive Reset Frequency} as string,\n\t\t{Receive Side Day Count} as string,\n\t\t{Receive Side Business Day Adjustment} as string,\n\t\t{Receive Side Date Rolling Convention} as string,\n\t\t{Receive Leg Compounding Method} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tskipLines: 1) ~> SecurityMasterRaw\nSerialization rank(desc(SNo, true),\n\toutput(Rank as long)) ~> Rank\nSecurityMasterRaw keyGenerate(output(SNo as long),\n\tstartAt: 1L) ~> Serialization\nRank filter(Rank>1) ~> RemoveFooter\nSortSNo select(mapColumn(\n\t\t{Financial Instrument Global Identifier (FIGI)},\n\t\t{Firm Identifier},\n\t\t{Security Identifier Flag},\n\t\t{Unique Identifier},\n\t\t{Cusip Number},\n\t\t{ISIN Number},\n\t\tTicker,\n\t\t{Parskeyeable Description},\n\t\t{Security Name},\n\t\t{Short Name},\n\t\tCountry,\n\t\tCurrency,\n\t\t{Security Type},\n\t\t{Market Sector Description},\n\t\t{PRPL Indicator},\n\t\t{Quote Type},\n\t\t{Pricing Source},\n\t\t{CDR Settle Code},\n\t\t{Next Reset Date},\n\t\t{Last Reset Date},\n\t\t{Coupon Type},\n\t\tCoupon,\n\t\t{Coupon as of Date},\n\t\t{Coupon Frequency},\n\t\t{Reset Frequency},\n\t\t{First Settle Date},\n\t\t{First Coupon Payment Date},\n\t\t{Next Coupon Settle Date},\n\t\t{Interest Accrual Date},\n\t\tMaturity,\n\t\t{Floater Indicator},\n\t\t{Coupon Rate Fixing Method},\n\t\t{Coupon Convention},\n\t\t{Floater Spread (bp)},\n\t\t{Reset Index},\n\t\t{Amount Issued},\n\t\t{Amount Outstanding},\n\t\t{Issue Date},\n\t\t{Issue Price},\n\t\t{Bloomberg Company Identifier},\n\t\tIssuer,\n\t\t{Issuer Industry},\n\t\t{Call Indicator},\n\t\t{Bond Called Indicator},\n\t\t{Next Call Date},\n\t\t{Next Put Date},\n\t\t{Next Call Price},\n\t\t{Next Put Price},\n\t\t{Day Count Description},\n\t\t{Day Count},\n\t\t{Calculation Type Description},\n\t\t{Calculation Type},\n\t\t{Collateral Type},\n\t\t{Swap Type},\n\t\t{Swap Counterparty},\n\t\t{Calc Basis Fixed Leg Pay Side},\n\t\t{Float Lag Term},\n\t\t{Swap Trade Date},\n\t\t{Effective Date},\n\t\t{Pay Side Effective Date},\n\t\t{Pay Currency},\n\t\t{Pay Side Coupon Type},\n\t\t{Pay Coupon},\n\t\t{Pay Frequency},\n\t\t{Pay Floating Rate Index},\n\t\t{Pay Spread},\n\t\t{Pay Reset Frequency},\n\t\t{Pay Side Day Count},\n\t\t{Pay Side Business Day Adjustment},\n\t\t{Pay Side Date Rolling Convention},\n\t\t{Pay Leg Compounding Method},\n\t\t{Receive Side Effective Date},\n\t\t{Receive Currency},\n\t\t{Receive Side Coupon Type},\n\t\t{Receive Coupon},\n\t\t{Receive Frequency},\n\t\t{Receive Floating Rate Index},\n\t\t{Receive Spread},\n\t\t{Receive Reset Frequency},\n\t\t{Receive Side Day Count},\n\t\t{Receive Side Business Day Adjustment},\n\t\t{Receive Side Date Rolling Convention},\n\t\t{Receive Leg Compounding Method}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> RemoveRankAndSno\nRemoveFooter sort(asc(SNo, true)) ~> SortSNo\nRemoveRankAndSno sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SMWithoutHeaderAndFooter"
+		}
+	}
+}
