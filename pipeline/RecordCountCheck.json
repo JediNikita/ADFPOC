@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "RecordCountCheck",
 	"properties": {
 		"activities": [
 			{
@@ -23,7 +23,10 @@
 						"coreCount": 8,
 						"computeType": "General"
 					},
-					"traceLevel": "Fine"
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
 				}
 			},
 			{
@@ -47,7 +50,10 @@
 						"coreCount": 8,
 						"computeType": "General"
 					},
-					"traceLevel": "Fine"
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
 				}
 			},
 			{
@@ -81,7 +87,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pipeline2",
+									"referenceName": "DateTimeCheck",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true
