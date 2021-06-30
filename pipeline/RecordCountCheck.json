@@ -76,18 +76,29 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@activity('CountingRowsDataFlow').output == activity('ExtractFooter').output",
+						"value": "@equals(activity('CountingRowsDataFlow').output.runStatus.output.RowCountSink.value[0].SNo, activity('ExtractFooter').output.runStatus.output.RowCountSink.value[0].CountOfRecords)",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "WaitFalse",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 1
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
-							"name": "pipeline2",
+							"name": "pipeline1",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "DateTimeCheck",
+									"referenceName": "pipeline1",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true
