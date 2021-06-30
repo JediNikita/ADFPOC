@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "df-np-poc-idbinvest-tms"
+		},
+		"AzureFunctionLinkedService_functionKey": {
+			"value": ""
+		},
+		"DataLakeLinkedService_accountKey": {
+			"value": ""
+		},
+		"AzureFunctionLinkedService_properties_typeProperties_functionAppUrl": {
+			"value": "https://fn-np-poc-idbinvest-bloomberg-in-sftp.azurewebsites.net"
+		},
+		"DataLakeLinkedService_properties_typeProperties_url": {
+			"value": "https://dlsnpdidbibloomberg.dfs.core.windows.net"
+		}
+	}
+}
