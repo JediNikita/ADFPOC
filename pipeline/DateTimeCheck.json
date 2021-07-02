@@ -48,12 +48,16 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Wait1",
-							"type": "Wait",
+							"name": "RecordCountCheck",
+							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"waitTimeInSeconds": 1
+								"pipeline": {
+									"referenceName": "RecordCountCheck",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
 							}
 						}
 					]
