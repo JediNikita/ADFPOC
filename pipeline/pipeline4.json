@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata1",
+				"name": "GetFilesFromStaging",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
@@ -24,6 +24,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -32,11 +33,11 @@
 				}
 			},
 			{
-				"name": "Filter1",
+				"name": "FilterStartsWith",
 				"type": "Filter",
 				"dependsOn": [
 					{
-						"activity": "Get Metadata1",
+						"activity": "GetFilesFromStaging",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -55,11 +56,11 @@
 				}
 			},
 			{
-				"name": "Filter2",
+				"name": "FilterEndsWith",
 				"type": "Filter",
 				"dependsOn": [
 					{
-						"activity": "Filter1",
+						"activity": "FilterStartsWith",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -78,11 +79,11 @@
 				}
 			},
 			{
-				"name": "If Condition1",
+				"name": "CheckForSize",
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "Filter2",
+						"activity": "FilterEndsWith",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -96,22 +97,27 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "pipeline5",
-							"type": "ExecutePipeline",
+							"name": "SetArray",
+							"type": "SetVariable",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"pipeline": {
-									"referenceName": "pipeline5",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true
+								"variableName": "ArrayOfFilenames",
+								"value": {
+									"value": "@activity('FilterEndsWith').output.Value",
+									"type": "Expression"
+								}
 							}
 						}
 					]
 				}
 			}
 		],
+		"variables": {
+			"ArrayOfFilenames": {
+				"type": "Array"
+			}
+		},
 		"annotations": []
 	}
 }
