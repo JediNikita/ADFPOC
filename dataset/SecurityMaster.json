@@ -1,5 +1,5 @@
 {
-	"name": "AllFiles",
+	"name": "SecurityMaster",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "DataLakeLinkedService",

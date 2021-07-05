@@ -3,35 +3,16 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup1",
-				"type": "Lookup",
+				"name": "Execute Pipeline1",
+				"type": "ExecutePipeline",
 				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"modifiedDatetimeStart": "2021-06-29T18:40:00.000Z",
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
+					"pipeline": {
+						"referenceName": "FilterAndCopySecurityMasterFeedToInput",
+						"type": "PipelineReference"
 					},
-					"dataset": {
-						"referenceName": "SMWithoutHeaderAndFooter",
-						"type": "DatasetReference"
-					},
-					"firstRowOnly": false
+					"waitOnCompletion": true
 				}
 			}
 		],

@@ -1,5 +1,5 @@
 {
-	"name": "pipeline4",
+	"name": "FilterAndCopySecurityMasterFeedToInput",
 	"properties": {
 		"activities": [
 			{
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "SecurityMaster",
+						"referenceName": "AllFiles",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
@@ -46,7 +46,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Get Metadata1').output.childItems",
+						"value": "@activity('GetFilesFromStaging').output.childItems",
 						"type": "Expression"
 					},
 					"condition": {
@@ -69,7 +69,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Filter1').output.Value",
+						"value": "@activity('FilterStartsWith').output.Value",
 						"type": "Expression"
 					},
 					"condition": {
@@ -79,8 +79,8 @@
 				}
 			},
 			{
-				"name": "CheckForSize",
-				"type": "IfCondition",
+				"name": "SetArrayOfFileNames",
+				"type": "SetVariable",
 				"dependsOn": [
 					{
 						"activity": "FilterEndsWith",
@@ -91,23 +91,92 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"expression": {
-						"value": "@greater(length(activity('Filter1').output.Value), 0)",
+					"variableName": "ArrayOfFilenames",
+					"value": {
+						"value": "@activity('FilterEndsWith').output.Value",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "ForEach",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "SetArrayOfFileNames",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('ArrayOfFilenames')",
 						"type": "Expression"
 					},
-					"ifTrueActivities": [
+					"activities": [
 						{
-							"name": "SetArray",
-							"type": "SetVariable",
+							"name": "CopyDataToInputFolder",
+							"type": "Copy",
 							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "ArrayOfFilenames",
-								"value": {
-									"value": "@activity('FilterEndsWith').output.Value",
-									"type": "Expression"
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"wildcardFileName": {
+											"value": "@string(item().name)",
+											"type": "Expression"
+										},
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
 								}
-							}
+							},
+							"inputs": [
+								{
+									"referenceName": "SecurityMaster",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "SecurityMasterFilteredRaw",
+									"type": "DatasetReference"
+								}
+							]
 						}
 					]
 				}
