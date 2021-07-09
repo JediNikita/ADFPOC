@@ -177,6 +177,26 @@
 									"type": "DatasetReference"
 								}
 							]
+						},
+						{
+							"name": "pipeline5",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "CopyDataToInputFolder",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pipeline5",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
 						}
 					]
 				}
