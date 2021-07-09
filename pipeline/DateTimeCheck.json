@@ -64,6 +64,11 @@
 				}
 			}
 		],
+		"parameters": {
+			"FileNameDTC": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }

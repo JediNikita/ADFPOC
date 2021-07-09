@@ -24,6 +24,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -48,26 +49,47 @@
 						"value": "@activity('Get Security Master').output.childItems",
 						"type": "Expression"
 					},
+					"isSequential": true,
 					"activities": [
 						{
-							"name": "Set variable1",
-							"type": "SetVariable",
+							"name": "ExtractHeader",
+							"type": "ExecuteDataFlow",
 							"dependsOn": [],
+							"policy": {
+								"timeout": "1.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "Filename",
-								"value": {
-									"value": "@item().name",
-									"type": "Expression"
+								"dataflow": {
+									"referenceName": "ExtractHeader",
+									"type": "DataFlowReference",
+									"parameters": {
+										"FileNameDF": {
+											"value": "'@{item().name}'",
+											"type": "Expression"
+										}
+									}
+								},
+								"compute": {
+									"coreCount": 8,
+									"computeType": "General"
+								},
+								"traceLevel": "None",
+								"cacheSinks": {
+									"firstRowOnly": true
 								}
 							}
 						},
 						{
-							"name": "DateTimeCheck",
-							"type": "ExecutePipeline",
+							"name": "If Condition1",
+							"type": "IfCondition",
 							"dependsOn": [
 								{
-									"activity": "Set variable1",
+									"activity": "ExtractHeader",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -75,11 +97,36 @@
 							],
 							"userProperties": [],
 							"typeProperties": {
-								"pipeline": {
-									"referenceName": "DateTimeCheck",
-									"type": "PipelineReference"
+								"expression": {
+									"value": "@greaterOrEquals(activity('ExtractHeader').output.runStatus.output.DateSink.value[0].HeaderDate, formatDateTime(utcnow(), 'HH:mm:ss yy/MM/dd'))",
+									"type": "Expression"
 								},
-								"waitOnCompletion": true
+								"ifFalseActivities": [
+									{
+										"name": "Waitfalse",
+										"type": "Wait",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"waitTimeInSeconds": 1
+										}
+									}
+								],
+								"ifTrueActivities": [
+									{
+										"name": "RecordCountCheck",
+										"type": "ExecutePipeline",
+										"dependsOn": [],
+										"userProperties": [],
+										"typeProperties": {
+											"pipeline": {
+												"referenceName": "RecordCountCheck",
+												"type": "PipelineReference"
+											},
+											"waitOnCompletion": true
+										}
+									}
+								]
 							}
 						}
 					]
