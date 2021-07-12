@@ -192,7 +192,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pipeline5",
+									"referenceName": "ProcessPatternMatching",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true
