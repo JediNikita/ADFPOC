@@ -207,6 +207,9 @@
 				"type": "Array"
 			}
 		},
+		"folder": {
+			"name": "PatternMatching"
+		},
 		"annotations": []
 	}
 }

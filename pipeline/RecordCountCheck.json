@@ -167,7 +167,13 @@
 							"outputs": [
 								{
 									"referenceName": "SMPatternMatchingFailure",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"FileNameFailure": {
+											"value": "@pipeline().parameters.FileName",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
@@ -248,7 +254,13 @@
 							"outputs": [
 								{
 									"referenceName": "SMPatternMatchingSuccess",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"FileNameSuccess": {
+											"value": "@pipeline().parameters.FileName",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
@@ -260,6 +272,9 @@
 			"FileName": {
 				"type": "string"
 			}
+		},
+		"folder": {
+			"name": "PatternMatching"
 		},
 		"annotations": []
 	}

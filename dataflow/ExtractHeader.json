@@ -1,6 +1,9 @@
 {
 	"name": "ExtractHeader",
 	"properties": {
+		"folder": {
+			"name": "PatternMatchingDataflow"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [

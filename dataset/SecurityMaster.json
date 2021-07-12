@@ -5,6 +5,9 @@
 			"referenceName": "DataLakeLinkedService",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "PatternMatchingDatasets"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

@@ -1,6 +1,9 @@
 {
 	"name": "RemoveHeaderAndFooter",
 	"properties": {
+		"folder": {
+			"name": "PatternMatchingDataflow"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [

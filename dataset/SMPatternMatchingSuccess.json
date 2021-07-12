@@ -5,6 +5,14 @@
 			"referenceName": "DataLakeLinkedService",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"FileNameSuccess": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "PatternMatchingDatasets"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

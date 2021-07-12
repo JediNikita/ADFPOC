@@ -33,7 +33,7 @@
 				}
 			},
 			{
-				"name": "ForEach1",
+				"name": "ForEachFile",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -85,7 +85,7 @@
 							}
 						},
 						{
-							"name": "If Condition1",
+							"name": "IfUTCGreaterThanFileDate",
 							"type": "IfCondition",
 							"dependsOn": [
 								{
@@ -143,6 +143,9 @@
 			"Filename": {
 				"type": "String"
 			}
+		},
+		"folder": {
+			"name": "PatternMatching"
 		},
 		"annotations": []
 	}
