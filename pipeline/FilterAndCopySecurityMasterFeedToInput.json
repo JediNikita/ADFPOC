@@ -115,6 +115,7 @@
 						"value": "@variables('ArrayOfFilenames')",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "CopyDataToInputFolder",
@@ -179,7 +180,7 @@
 							]
 						},
 						{
-							"name": "pipeline5",
+							"name": "ProcessPatternMatching",
 							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
