@@ -189,8 +189,8 @@
 							}
 						},
 						{
-							"name": "CopyToSuccessPatternMatching",
-							"type": "Copy",
+							"name": "RemoveHeaderAndFooterPipeline",
+							"type": "ExecutePipeline",
 							"dependsOn": [
 								{
 									"activity": "WaitRCTrue",
@@ -199,70 +199,14 @@
 									]
 								}
 							],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
 							"userProperties": [],
 							"typeProperties": {
-								"source": {
-									"type": "DelimitedTextSource",
-									"storeSettings": {
-										"type": "AzureBlobFSReadSettings",
-										"recursive": true,
-										"wildcardFolderPath": "input",
-										"wildcardFileName": {
-											"value": "@pipeline().parameters.FileName",
-											"type": "Expression"
-										},
-										"enablePartitionDiscovery": false
-									},
-									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
-									}
+								"pipeline": {
+									"referenceName": "RemoveHeaderAndFooterPipeline",
+									"type": "PipelineReference"
 								},
-								"sink": {
-									"type": "DelimitedTextSink",
-									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
-									},
-									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".txt"
-									}
-								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
-							},
-							"inputs": [
-								{
-									"referenceName": "SecurityMasterBlob",
-									"type": "DatasetReference"
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "SMPatternMatchingSuccess",
-									"type": "DatasetReference",
-									"parameters": {
-										"FileNameSuccess": {
-											"value": "@pipeline().parameters.FileName",
-											"type": "Expression"
-										}
-									}
-								}
-							]
+								"waitOnCompletion": true
+							}
 						}
 					]
 				}
