@@ -164,8 +164,7 @@
 		],
 		"parameters": {
 			"FileName": {
-				"type": "string",
-				"defaultValue": "'f6600af400.ext.210701.2'"
+				"type": "string"
 			}
 		},
 		"folder": {
