@@ -13,8 +13,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "patternmatching",
-				"fileSystem": "success"
+				"folderPath": "success/patternmatching",
+				"fileSystem": "transient"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

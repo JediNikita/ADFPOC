@@ -18,12 +18,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": {
-					"value": "@guid()",
-					"type": "Expression"
-				},
-				"folderPath": "patternmatching",
-				"fileSystem": "success"
+				"folderPath": "success/patternmatching",
+				"fileSystem": "transient"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
