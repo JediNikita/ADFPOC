@@ -168,7 +168,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "SecurityMaster",
+									"referenceName": "AllFiles",
 									"type": "DatasetReference"
 								}
 							],
@@ -196,7 +196,13 @@
 									"referenceName": "ProcessPatternMatching",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"FileName": {
+										"value": "@item().name",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					]

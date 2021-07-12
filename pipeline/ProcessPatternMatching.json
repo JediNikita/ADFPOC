@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Security Master",
-				"type": "GetMetadata",
+				"name": "ExtractHeader",
+				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
-					"timeout": "7.00:00:00",
+					"timeout": "00:10:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
@@ -15,29 +15,32 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataset": {
-						"referenceName": "SecurityMasterFilteredRaw",
-						"type": "DatasetReference"
+					"dataflow": {
+						"referenceName": "ExtractHeader",
+						"type": "DataFlowReference",
+						"parameters": {
+							"FileNameDF": {
+								"value": "@pipeline().parameters.FileName",
+								"type": "Expression"
+							}
+						}
 					},
-					"fieldList": [
-						"childItems"
-					],
-					"storeSettings": {
-						"type": "AzureBlobFSReadSettings",
-						"recursive": true,
-						"enablePartitionDiscovery": false
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
 					},
-					"formatSettings": {
-						"type": "DelimitedTextReadSettings"
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
 					}
 				}
 			},
 			{
-				"name": "ForEachFile",
-				"type": "ForEach",
+				"name": "IfUTCGreaterThanFileDate",
+				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "Get Security Master",
+						"activity": "ExtractHeader",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -45,18 +48,33 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"items": {
-						"value": "@activity('Get Security Master').output.childItems",
+					"expression": {
+						"value": "@greaterOrEquals(activity('ExtractHeader').output.runStatus.output.DateSink.value[0].HeaderDate, formatDateTime(utcnow(), 'HH:mm:ss yy/MM/dd'))",
 						"type": "Expression"
 					},
-					"isSequential": true,
-					"activities": [
+					"ifFalseActivities": [
 						{
-							"name": "ExtractHeader",
-							"type": "ExecuteDataFlow",
+							"name": "WaitFalse",
+							"type": "Wait",
 							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 1
+							}
+						},
+						{
+							"name": "CopyToFailurePatternMatching",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "WaitFalse",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
 							"policy": {
-								"timeout": "1.00:00:00",
+								"timeout": "7.00:00:00",
 								"retry": 0,
 								"retryIntervalInSeconds": 30,
 								"secureOutput": false,
@@ -64,150 +82,80 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"dataflow": {
-									"referenceName": "ExtractHeader",
-									"type": "DataFlowReference",
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"wildcardFileName": {
+											"value": "@pipeline().parameters.FileName",
+											"type": "Expression"
+										},
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SecurityMasterBlob",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "SMPatternMatchingFailure",
+									"type": "DatasetReference",
 									"parameters": {
-										"FileNameDF": {
-											"value": "'@{item().name}'",
+										"FileNameFailure": {
+											"value": "@pipeline().parameters.FileName",
 											"type": "Expression"
 										}
 									}
-								},
-								"compute": {
-									"coreCount": 8,
-									"computeType": "General"
-								},
-								"traceLevel": "None",
-								"cacheSinks": {
-									"firstRowOnly": true
 								}
-							}
-						},
+							]
+						}
+					],
+					"ifTrueActivities": [
 						{
-							"name": "IfUTCGreaterThanFileDate",
-							"type": "IfCondition",
-							"dependsOn": [
-								{
-									"activity": "ExtractHeader",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"name": "RecordCountCheck",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"expression": {
-									"value": "@greaterOrEquals(activity('ExtractHeader').output.runStatus.output.DateSink.value[0].HeaderDate, formatDateTime(utcnow(), 'HH:mm:ss yy/MM/dd'))",
-									"type": "Expression"
+								"pipeline": {
+									"referenceName": "RecordCountCheck",
+									"type": "PipelineReference"
 								},
-								"ifFalseActivities": [
-									{
-										"name": "Waitfalse",
-										"type": "Wait",
-										"dependsOn": [],
-										"userProperties": [],
-										"typeProperties": {
-											"waitTimeInSeconds": 1
-										}
-									},
-									{
-										"name": "CopyToFailurePatternMatching",
-										"type": "Copy",
-										"dependsOn": [
-											{
-												"activity": "Waitfalse",
-												"dependencyConditions": [
-													"Succeeded"
-												]
-											}
-										],
-										"policy": {
-											"timeout": "7.00:00:00",
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
-										},
-										"userProperties": [],
-										"typeProperties": {
-											"source": {
-												"type": "DelimitedTextSource",
-												"storeSettings": {
-													"type": "AzureBlobFSReadSettings",
-													"recursive": true,
-													"wildcardFileName": {
-														"value": "@pipeline().parameters.FileName",
-														"type": "Expression"
-													},
-													"enablePartitionDiscovery": false
-												},
-												"formatSettings": {
-													"type": "DelimitedTextReadSettings"
-												}
-											},
-											"sink": {
-												"type": "DelimitedTextSink",
-												"storeSettings": {
-													"type": "AzureBlobFSWriteSettings"
-												},
-												"formatSettings": {
-													"type": "DelimitedTextWriteSettings",
-													"quoteAllText": true,
-													"fileExtension": ".txt"
-												}
-											},
-											"enableStaging": false,
-											"translator": {
-												"type": "TabularTranslator",
-												"typeConversion": true,
-												"typeConversionSettings": {
-													"allowDataTruncation": true,
-													"treatBooleanAsNumber": false
-												}
-											}
-										},
-										"inputs": [
-											{
-												"referenceName": "SecurityMasterBlob",
-												"type": "DatasetReference"
-											}
-										],
-										"outputs": [
-											{
-												"referenceName": "SMPatternMatchingFailure",
-												"type": "DatasetReference",
-												"parameters": {
-													"FileNameFailure": {
-														"value": "@pipeline().parameters.FileName",
-														"type": "Expression"
-													}
-												}
-											}
-										]
+								"waitOnCompletion": true,
+								"parameters": {
+									"FileName": {
+										"value": "@pipeline().parameters.FileName",
+										"type": "Expression"
 									}
-								],
-								"ifTrueActivities": [
-									{
-										"name": "RecordCountCheck",
-										"type": "ExecutePipeline",
-										"dependsOn": [],
-										"userProperties": [],
-										"typeProperties": {
-											"pipeline": {
-												"referenceName": "RecordCountCheck",
-												"type": "PipelineReference"
-											},
-											"waitOnCompletion": true,
-											"parameters": {
-												"FileName": {
-													"value": "@item().name",
-													"type": "Expression"
-												}
-											}
-										}
-									}
-								]
+								}
 							}
 						}
 					]
@@ -216,12 +164,8 @@
 		],
 		"parameters": {
 			"FileName": {
-				"type": "string"
-			}
-		},
-		"variables": {
-			"Filename": {
-				"type": "String"
+				"type": "string",
+				"defaultValue": "'f6600af400.ext.210701.2'"
 			}
 		},
 		"folder": {

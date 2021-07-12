@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "sftpfiles/sftp.bloomberg/06302021",
+				"folderPath": "sftpfiles/sftp.bloomberg/demo/noheader",
 				"fileSystem": "prubcontainer"
 			},
 			"columnDelimiter": ",",

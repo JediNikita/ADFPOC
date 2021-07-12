@@ -18,6 +18,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().FileNameSuccess",
+					"type": "Expression"
+				},
 				"folderPath": "success/patternmatching",
 				"fileSystem": "transient"
 			},

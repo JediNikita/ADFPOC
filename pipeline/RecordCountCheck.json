@@ -20,7 +20,7 @@
 						"type": "DataFlowReference",
 						"parameters": {
 							"FileNameCR": {
-								"value": "'@{pipeline().parameters.FileName}'",
+								"value": "@pipeline().parameters.FileName",
 								"type": "Expression"
 							}
 						}
@@ -53,7 +53,7 @@
 						"type": "DataFlowReference",
 						"parameters": {
 							"FileNameEF": {
-								"value": "'@{pipeline().parameters.FileName}'",
+								"value": "@pipeline().parameters.FileName",
 								"type": "Expression"
 							}
 						}
