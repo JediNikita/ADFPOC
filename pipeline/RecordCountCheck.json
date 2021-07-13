@@ -88,7 +88,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(trim(activity('CountingRowsDataFlow').output.runStatus.output.RowCountSink.value[0].SNo), trim(activity('ExtractFooter').output.runStatus.output.RowCountSink.value[0].CountOfRecords))",
+						"value": "@equals(activity('CountingRowsDataFlow').output.runStatus.output.RowCountSink.value[0].SNo, activity('ExtractFooter').output.runStatus.output.RowCountSink.value[0].CountOfRecords)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -170,7 +170,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"FileNameFailure": {
-											"value": "@pipeline().parameters.FileName",
+											"value": "@replace(pipeline().parameters.FileName, '''', '')",
 											"type": "Expression"
 										}
 									}
