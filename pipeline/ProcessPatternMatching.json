@@ -20,13 +20,13 @@
 						"type": "DataFlowReference",
 						"parameters": {
 							"FileNameDF": {
-								"value": "@pipeline().parameters.FileName",
+								"value": "@String(pipeline().parameters.FileName)",
 								"type": "Expression"
 							}
 						}
 					},
 					"compute": {
-						"coreCount": 8,
+						"coreCount": 80,
 						"computeType": "General"
 					},
 					"traceLevel": "None",
@@ -152,7 +152,7 @@
 								"waitOnCompletion": true,
 								"parameters": {
 									"FileName": {
-										"value": "@pipeline().parameters.FileName",
+										"value": "@String(pipeline().parameters.FileName)",
 										"type": "Expression"
 									}
 								}

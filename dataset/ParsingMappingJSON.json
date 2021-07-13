@@ -1,0 +1,30 @@
+{
+	"name": "ParsingMappingJSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DataLakeLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "ParsingMappingJSON.json",
+				"folderPath": "rulespec",
+				"fileSystem": "transient"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"Mnemonic": {
+					"type": "string"
+				},
+				"Format": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}

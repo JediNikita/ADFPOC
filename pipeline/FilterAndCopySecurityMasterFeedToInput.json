@@ -199,7 +199,7 @@
 								"waitOnCompletion": true,
 								"parameters": {
 									"FileName": {
-										"value": "@item().name",
+										"value": "@string(concat('''',item().name, ''''))",
 										"type": "Expression"
 									}
 								}

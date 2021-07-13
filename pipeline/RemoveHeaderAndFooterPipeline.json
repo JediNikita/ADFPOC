@@ -17,7 +17,13 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "RemoveHeaderAndFooter",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"parameters": {
+							"FileNameRHF": {
+								"value": "'@{pipeline().parameters.FileName}'",
+								"type": "Expression"
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
@@ -27,6 +33,11 @@
 				}
 			}
 		],
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "PatternMatching"
 		},

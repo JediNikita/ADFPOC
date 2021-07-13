@@ -10,9 +10,9 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "434cdf62-5f3b-4ea2-a1aa-d2cb2bb1ce46",
-				"folderPath": "patternmatching",
-				"fileSystem": "failure"
+				"fileName": "f6600af400.ext.210701.2",
+				"folderPath": "success/patternmatching",
+				"fileSystem": "transient"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
