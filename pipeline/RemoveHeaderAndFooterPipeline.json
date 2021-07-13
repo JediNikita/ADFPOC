@@ -20,7 +20,7 @@
 						"type": "DataFlowReference",
 						"parameters": {
 							"FileNameRHF": {
-								"value": "'@{pipeline().parameters.FileName}'",
+								"value": "'@{replace(pipeline().parameters.FileName,'''','')}'",
 								"type": "Expression"
 							}
 						}
