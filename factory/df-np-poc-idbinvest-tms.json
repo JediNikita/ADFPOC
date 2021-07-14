@@ -1,0 +1,9 @@
+{
+	"name": "df-np-poc-idbinvest-tms",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "126d3d09-9958-4a86-8b9c-ee462bb25ce7",
+		"tenantId": "9dfb1a05-5f1d-449a-8960-62abcb479e7d"
+	}
+}

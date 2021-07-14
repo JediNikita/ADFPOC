@@ -1,0 +1,14 @@
+{
+	"name": "SharePointOnlineList1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SharePointOnlineList",
+		"typeProperties": {
+			"siteUrl": "https://idbg.sharepoint.com/:x:/r/sites/TREASEND-STATE/_layouts/15/Doc.aspx?sourcedoc=%7B22003C5A-0B36-4D14-A4F7-BD099A3B7FB7%7D&file=f6600af400.ext.210611.2.xlsx&action=default&mobileredirect=true",
+			"tenantId": "9dfb1a05-5f1d-449a-8960-62abcb479e7d",
+			"servicePrincipalId": "f1d2702e-2e44-4815-825d-920175d83e3e",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRGLU5QLVBPQy1JREJJTlZFU1QtVE1TXzk4NmM3YzcyLTJiMjYtNDA4Mi1hOGE2LWY1YzVhN2RlYTM4MiINCn0="
+		}
+	}
+}

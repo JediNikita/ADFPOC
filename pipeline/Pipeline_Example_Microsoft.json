@@ -1,9 +1,9 @@
 {
-	"name": "RemoveHeaderAndFooterPipeline",
+	"name": "Pipeline_Example_Microsoft",
 	"properties": {
 		"activities": [
 			{
-				"name": "RemoveHeaderAndFooter",
+				"name": "TransformMovies",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "RemoveHeaderAndFooter",
+						"referenceName": "Df_Examp_TransformMovies",
 						"type": "DataFlowReference"
 					},
 					"compute": {
@@ -27,8 +27,11 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "Examples"
+		},
 		"annotations": [],
-		"lastPublishTime": "2021-07-01T16:55:06Z"
+		"lastPublishTime": "2021-06-30T00:09:46Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

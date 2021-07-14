@@ -1,0 +1,17 @@
+{
+	"name": "TriggerSecurityMasterFeed",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/prubcontainer/blobs/sftpfiles/sftp.bloomberg/06102021/f6600af400.ext.210603.1",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/d260926b-67fc-4d7b-98f8-ae3f0cfe079a/resourceGroups/rg-np-idbinvest-poc/providers/Microsoft.Storage/storageAccounts/dlsnpdidbibloomberg",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

@@ -1,20 +1,22 @@
 {
-	"name": "SMWithoutHeaderAndFooter_copy1",
+	"name": "Liquidity_Cash_Ladder_16160329_20210429194523",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "DataLakeLinkedService",
+			"referenceName": "dlsnpdidbibloomberg",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
-				"folderPath": "patternmatching",
-				"fileSystem": "success"
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Liquidity_Cash_Ladder_16160329_20210429194523.xlsx",
+				"folderPath": "2021/05/26",
+				"container": "bloomberg"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
+			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
 		"schema": []

@@ -1,0 +1,25 @@
+{
+	"name": "Liquidity_Cash_Ladder_16149725_20210428194523_ARCHIVE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dlsnpdidbibloomberg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Liquidity_Cash_Ladder_16149725_20210428194523_ARCHIVE.xlsx",
+				"folderPath": "23-06",
+				"container": "archive"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\"",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

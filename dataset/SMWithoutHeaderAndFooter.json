@@ -5,21 +5,19 @@
 			"referenceName": "DataLakeLinkedService",
 			"type": "LinkedServiceReference"
 		},
-		"folder": {
-			"name": "PatternMatchingDatasets"
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "success/patternmatching",
-				"fileSystem": "transient"
+				"folderPath": "patternmatching",
+				"fileSystem": "success"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"quoteChar": "\""
 		},
 		"schema": []
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
 }

@@ -1,8 +1,8 @@
 {
-	"name": "SMWithoutHeaderAndFooter_copy1",
+	"name": "ExampleMS_Rep_MoviesSink",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "DataLakeLinkedService",
+			"referenceName": "ADLSGen2",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "patternmatching",
-				"fileSystem": "success"
+				"folderPath": "2021/05/26",
+				"fileSystem": "bloomberg"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

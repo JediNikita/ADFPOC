@@ -1,0 +1,69 @@
+{
+	"name": "Source1_Liquidity_Cash_Ladder_16149725_20210428194523",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "p_Detail_1",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Liquidity_Cash_Ladder_16149725_20210428194523.xlsx",
+				"folderPath": "2021/05/26",
+				"fileSystem": "bloomberg"
+			},
+			"firstRowAsHeader": false
+		},
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,38 @@
+{
+	"name": "Liquidity_Cash_Ladder_16205577_20210502194523",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dlsnpdidbibloomberg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Liquidity_Cash_Ladder_16205577_20210502194523.xlsx",
+				"folderPath": "2021/05/26",
+				"container": "bloomberg"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "PK\u0003\u0004\u0014\u0000\b\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000%\u0000\u0000\u0000xl/media/24840_customerLogo-null.jpeg��y4����?c0B&�\u001a3v�R�",
+				"type": "String"
+			},
+			{
+				"name": "1C���$Q�\u0012a",
+				"type": "String"
+			},
+			{
+				"name": "�0֑�Ȓ5!cI(Lʾ�VI\u0018��;c�)�\u0018c����=������y�s}����\\����u]��~_��\u001cfN\u0003�.\u0018�\u0019\u0003 6\u0000\u0000�\u001e�9\u0006\u0018\u0002\\��\u0010N\u000e.\b\u0004r�\u0000\u00177�<<���\u0005�G$��0\t1qqIYU\u0005Iie\u0019qqE�c�'�N�>",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

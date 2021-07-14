@@ -1,0 +1,35 @@
+{
+	"name": "Data_flow_Probe_1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Source1_Liquidity_Cash_Ladder_16149725_20210428194523",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ExampleMS_Rep_MoviesSink",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SelectNotNullColumns"
+				},
+				{
+					"name": "DeleteRowsIsNull"
+				}
+			],
+			"script": "source(output(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string,\n\t\tColumn_3 as string,\n\t\tColumn_4 as string,\n\t\tColumn_5 as string,\n\t\tColumn_6 as string,\n\t\tColumn_7 as string,\n\t\tColumn_8 as string,\n\t\tColumn_9 as string,\n\t\tColumn_10 as string,\n\t\tColumn_11 as string,\n\t\tColumn_12 as string,\n\t\tColumn_13 as string,\n\t\tColumn_14 as string,\n\t\tColumn_15 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource1 select(mapColumn(\n\t\tColumn_1,\n\t\tColumn_3,\n\t\tColumn_4,\n\t\tColumn_5,\n\t\tColumn_6,\n\t\tColumn_7,\n\t\tColumn_8,\n\t\tColumn_9,\n\t\tColumn_10,\n\t\tColumn_11,\n\t\tColumn_12,\n\t\tColumn_13,\n\t\tColumn_14,\n\t\tColumn_15\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectNotNullColumns\nSelectNotNullColumns alterRow(deleteIf(isNull(Column_4))) ~> DeleteRowsIsNull\nDeleteRowsIsNull sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+		}
+	}
+}

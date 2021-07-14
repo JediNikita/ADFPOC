@@ -5,16 +5,14 @@
 			"referenceName": "DataLakeLinkedService",
 			"type": "LinkedServiceReference"
 		},
-		"folder": {
-			"name": "PatternMatchingDatasets"
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "input",
-				"fileSystem": "raw"
+				"fileName": "f6600af400.ext.210622.1",
+				"folderPath": "sftpfiles/sftp.bloomberg/06292021",
+				"fileSystem": "prubcontainer"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
@@ -271,5 +269,6 @@
 				"type": "String"
 			}
 		]
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
 }
