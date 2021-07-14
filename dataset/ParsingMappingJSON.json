@@ -5,6 +5,9 @@
 			"referenceName": "DataLakeLinkedService",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Parsing Datasets"
+		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
