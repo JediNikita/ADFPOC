@@ -25,6 +25,26 @@
 					},
 					"traceLevel": "Fine"
 				}
+			},
+			{
+				"name": "Parsing",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "RemoveHeaderAndFooter",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pipeline6",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"folder": {
