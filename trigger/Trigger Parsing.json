@@ -1,0 +1,24 @@
+{
+	"name": "Trigger Parsing",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline6",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/transient/blobs/success/patternmatching",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/d260926b-67fc-4d7b-98f8-ae3f0cfe079a/resourceGroups/rg-np-idbinvest-poc/providers/Microsoft.Storage/storageAccounts/dlsnpdidbibloomberg",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

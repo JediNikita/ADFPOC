@@ -16,12 +16,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ParsingInput",
+						"referenceName": "SMPatternMatchingSuccess",
 						"type": "DatasetReference"
 					},
-					"fieldList": [
-						"structure"
-					],
+					"fieldList": [],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
 						"recursive": true,
