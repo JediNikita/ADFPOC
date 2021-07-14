@@ -1,6 +1,9 @@
 {
 	"name": "Mock1_data_flow_for_Normalization",
 	"properties": {
+		"folder": {
+			"name": "Aldo"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [

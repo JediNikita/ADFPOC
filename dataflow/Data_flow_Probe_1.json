@@ -1,6 +1,9 @@
 {
 	"name": "Data_flow_Probe_1",
 	"properties": {
+		"folder": {
+			"name": "Aldo"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [

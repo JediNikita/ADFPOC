@@ -1,6 +1,9 @@
 {
 	"name": "Df_Examp_TransformMovies",
 	"properties": {
+		"folder": {
+			"name": "Aldo"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [

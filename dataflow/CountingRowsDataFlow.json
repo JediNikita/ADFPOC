@@ -1,6 +1,9 @@
 {
 	"name": "CountingRowsDataFlow",
 	"properties": {
+		"folder": {
+			"name": "Pattern Matching"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [

@@ -1,6 +1,9 @@
 {
 	"name": "ExtractFooter",
 	"properties": {
+		"folder": {
+			"name": "Pattern Matching"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
